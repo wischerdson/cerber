@@ -1,0 +1,35 @@
+version: "3"
+
+# Only for development purposes
+
+services:
+  nodejs:
+    command: sh -c "npm install --no-audit && npm run dev"
+
+  nginx:
+    volumes:
+      - ./.docker/nginx/nginx.dev.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - 80:80
+      - 443:443
+
+  mariadb:
+    image: mariadb:latest
+    volumes:
+      - ./.runtime/mariadb:/var/lib/mysql
+    environment:
+      MARIADB_ROOT_PASSWORD: ${DB_PASSWORD}
+      MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: "yes"
+      MARIADB_DATABASE: ${DB_DATABASE}
+    ports:
+      - 3306:3306
+
+  composer:
+    command: /bin/sh -c "composer install --no-interaction --prefer-dist --no-progress"
+
+  queue:
+    depends_on:
+      - mariadb
+
+  smtp:
+    image: tianon/exim4:latest

@@ -1,0 +1,85 @@
+#{$actionComponentSelector} {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	user-select: none;
+	cursor: pointer;
+
+	&.appearance {
+		&-color {
+			&-primary {
+				color: $ui-color-white;
+				background-color: $ui-color-primary;
+
+				&:active {
+					background-color: darken($ui-color-primary, 15%);
+				}
+			}
+
+			&-gray {
+				background-color: lighten($ui-color-gray-200, 5%);
+
+				&:active {
+					background-color: darken($ui-color-gray-100, 7%);
+				}
+			}
+
+			&-black {
+				background-color: $ui-color-black;
+				color: $ui-color-white;
+
+				&:active {
+					background-color: lighten($ui-color-black, 20%);
+				}
+			}
+		}
+
+		&-lighting {
+			&.appearance-color-primary {
+				box-shadow: rgba($ui-color-primary, .5) 0 6px 30px 0;
+			}
+
+			&.appearance-color-gray {
+				box-shadow: $ui-color-gray-100 0 6px 30px 0;
+			}
+
+			&.appearance-color-black {
+				box-shadow: rgba($ui-color-black, .5) 0 6px 30px 0;
+			}
+		}
+	}
+
+	&.type {
+		&-button {
+			font-weight: 500;
+			border-radius: 9999px;
+			padding: 20px 44px;
+			transition: background-color .15s ease .1s;
+			position: relative;
+
+			&:active {
+				transition-duration: 0s;
+				transition-delay: 0s;
+			}
+
+			.loader {
+				&:after {
+					content: "";
+					display: block;
+					width: 26px;
+					height: 26px;
+					border-radius: 999px;
+					border: 3px solid $ui-color-white;
+					border-top-color: transparent;
+					border-left-color: transparent;
+					animation: loader-spin .8s linear infinite;
+
+					@keyframes loader-spin {
+						from { transform: rotate(360deg); }
+						to { transform: rotate(0deg); }
+					}
+				}
+			}
+		}
+	}
+}

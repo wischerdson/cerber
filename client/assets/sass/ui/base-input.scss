@@ -1,0 +1,21 @@
+#{$inputComponentSelector} {
+	&__label {
+		margin-bottom: 10px;
+		display: block;
+		line-height: 1;
+		text-align: center;
+		color: $ui-color-gray-600;
+		font-weight: 500;
+	}
+
+	&__input {
+		display: block;
+		width: 100%;
+		background-color: $ui-color-gray-100;
+		padding: 20px 35px;
+		font-weight: 500;
+		color: $ui-color-gray-600;
+		border-radius: 9999px;
+		font-size: $ui-font-size-lg;
+	}
+}

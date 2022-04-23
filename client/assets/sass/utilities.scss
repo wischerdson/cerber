@@ -1,0 +1,40 @@
+.container, .mobile-container {
+	width: 100%;
+	max-width: 1280px;
+	padding-left: .75rem;
+	padding-right: .75rem;
+	margin-left: auto;
+	margin-right: auto;
+
+	@screen xl {
+		max-width: 1024px;
+	}
+	@screen lg {
+		max-width: 768px;
+	}
+	@screen md {
+		max-width: 640px;
+	}
+	@screen sm {
+		max-width: 100%;
+	}
+}
+
+.mobile-container {
+	max-width: 448px;
+}
+
+.visually-hidden {
+	position: absolute;
+	clip: rect(1px, 1px, 1px, 1px);
+	padding: 0;
+	border: 0;
+	height: 1px;
+	width: 1px;
+	overflow: hidden;
+}
+
+.vertical-text {
+	writing-mode: tb-rl;
+	transform: rotate(180deg);
+}

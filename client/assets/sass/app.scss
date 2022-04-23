@@ -1,0 +1,10 @@
+@tailwind base;
+
+@import 'variables.scss';
+@import 'font.scss';
+@import 'reset.scss';
+@import 'settings.scss';
+@import 'utilities.scss';
+
+@tailwind components;
+@tailwind utilities;

@@ -1,0 +1,95 @@
+#!/usr/bin/env sh
+
+# Add alias to ~/.zshrc for example:
+# alias nexa="./nexa"
+# and run in terminal 'source ~/.zshrc'
+
+# For example:
+# nexa artisan make:model User
+
+set -eu
+
+RED='\033[0;31m'
+NC='\033[0m'
+
+# Ensure that there is .env file
+if [ ! -f ./.env ]; then
+	echo "${RED}The .env file is missing, but can be installed with:${NC} \n\n\tcp .env.example .env\n"
+	exit 1
+fi
+
+set -a
+. ./.env
+set +a
+
+getDockerComposeFiles() {
+	dockerComposeFiles="-f docker-compose.yaml"
+
+	if [ "$APP_ENV" = "local" ]; then
+		dockerComposeFiles="$dockerComposeFiles -f docker-compose.dev.yaml"
+	else
+		dockerComposeFiles="$dockerComposeFiles -f docker-compose.prod.yaml"
+	fi
+
+	dockerComposeOverrideFile="docker-compose.override.yaml"
+	if [ -f "$dockerComposeOverrideFile" ]; then
+		dockerComposeFiles="$dockerComposeFiles -f $dockerComposeOverrideFile"
+	fi
+
+	echo $dockerComposeFiles
+}
+
+up() {
+	dockerComposeFiles=$(getDockerComposeFiles)
+	echo "The following docker-compose files are used: \t$dockerComposeFiles"
+	docker-compose $dockerComposeFiles up --remove-orphans -d
+}
+
+if [ $# = 0 ]; then
+	exit 0
+fi
+
+command=$1
+
+shift 1
+
+case $command in
+	"artisan" | "art")
+		docker-compose exec php php artisan $@
+   		;;
+
+  	"composer")
+		docker-compose run composer $@
+		;;
+
+	"npm")
+		docker-compose exec nodejs npm $@
+		;;
+
+	"down")
+		if [ "$(docker ps | grep 'nexa')" != "" ]; then
+			docker-compose $(getDockerComposeFiles) down
+		fi
+		;;
+
+	"self-signed-cert")
+		/bin/bash ./.bin/self-signed-cert.sh
+		;;
+
+	"up")
+		if [ "$(docker ps | grep 'nexa')" = "" ]; then
+			up
+		fi
+		;;
+
+	"restart")
+		if [ "$(docker ps | grep 'nexa')" != "" ]; then
+			docker-compose $(getDockerComposeFiles) down
+		fi
+		up
+		;;
+
+	*)
+		echo -n "${RED}Unknown command\n${NC}"
+		;;
+esac

@@ -1,0 +1,19 @@
+version: "3"
+
+# For production purposes
+
+services:
+  php:
+    restart: unless-stopped
+
+  queue:
+    restart: unless-stopped
+
+  nginx:
+    volumes:
+      - ./.docker/nginx/nginx.prod.conf:/etc/nginx/nginx.conf:ro
+    restart: unless-stopped
+
+  nodejs:
+    restart: unless-stopped
+    command: sh -c "npm run start"
