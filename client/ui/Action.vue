@@ -24,7 +24,7 @@
 	export default {
 		props: {
 			href:      { type: String,  required: false, default: null      },
-			to:        { type: String,  required: false, default: null      },
+			to:        { type: [String, Object],  required: false, default: null      },
 			leftIcon:  { type: String,  required: false, default: null      },
 			rightIcon: { type: String,  required: false, default: null      },
 			color:     { type: String,  required: false, default: 'primary' },

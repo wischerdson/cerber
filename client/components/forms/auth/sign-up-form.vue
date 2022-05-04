@@ -2,13 +2,13 @@
 	<form @submit.prevent="signUp" novalidate>
 		<div class="mt-16 max-w-sm mx-auto space-y-4">
 			<v-input-phone
-				label="Номер телефона"
+				label="Phone"
 				v-model="fields.phone"
 				@change="$v.fields.phone.$touch"
 				:errors="{
-					'Пожалуйста, укажите Ваш телефон': errors.phoneRequired,
-					'Введите правильный номер': errors.phoneIsIncorrect,
-					'Такой номер телефона уже используется': errors.phoneIsNotUnique
+					'Enter your phone, please': errors.phoneRequired,
+					'Phone is incorrect': errors.phoneIsIncorrect,
+					'Phone already use': errors.phoneIsNotUnique
 				}"
 			/>
 			<v-input
@@ -17,14 +17,14 @@
 				v-model="fields.email"
 				@change="$v.fields.email.$touch"
 				:errors="{
-					'Пожалуйста, укажите Ваш email': errors.emailRequired,
-					'Введите правильный email': errors.emailIsIncorrect,
-					'Такой email уже используется': errors.emailIsNotUnique
+					'Enter your email, please': errors.emailRequired,
+					'Email is incorrect': errors.emailIsIncorrect,
+					'Email already use': errors.emailIsNotUnique
 				}"
 			/>
 			<v-input
 				type="password"
-				label="Пароль"
+				label="Password"
 				v-model="fields.password"
 				@change="$v.fields.password.$touch"
 				:errors="{
@@ -40,7 +40,7 @@
 			lighting
 			type="submit"
 			:loading="loading"
-		>Зарегистрироваться</v-action>
+		>Sign up</v-action>
 	</form>
 </template>
 

@@ -1,26 +1,15 @@
 <template>
 	<div class="py-16">
-		<div class="mobile-container">
+		<div class="panel w-full max-w-sm mx-auto rounded-xl pb-8">
 			<div class="text-center">
-				<v-action to="/">
-					<span class="text-6xl font-bold uppercase">Logo</span>
-				</v-action>
-			</div>
+				<h1 class="text-center text-3xl text-white font-normal pt-16">Sign In</h1>
+				<div class="text-gray-300 font-light mt-6">
+					Don't have an account yet?
 
-			<sign-in-form />
-
-			<div class="text-center">
-				<v-action class="text-blue-500 underline mt-8" to="/password-reset">Восстановить пароль</v-action>
+					<!-- <v-action class="font-medium underline" to="/auth/sign-up">Sign up here</v-action> -->
+				</div>
 			</div>
-
-			<div class="mt-16 text-center">
-				<v-action
-					button
-					lighting
-					color="gray"
-					to="/auth/sign-up"
-				>Зарегистрироваться</v-action>
-			</div>
+			<!-- <sign-in-form class="mt-12" /> -->
 		</div>
 	</div>
 </template>
@@ -30,7 +19,11 @@
 import SignInForm from '~/components/forms/auth/sign-in-form'
 
 export default {
-	components: { SignInForm }
+	layout: 'auth',
+	components: { SignInForm },
+	head: {
+		title: 'Cerber - Sign in'
+	}
 }
 
 </script>

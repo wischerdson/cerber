@@ -1,15 +1,18 @@
 <template>
 	<div>
-		<v-action class="text-blue-500 underline" to="/auth">Аутентификация</v-action>
-		<br>
-		<v-action class="text-blue-500 underline" to="/manage">Manage</v-action>
+		This is account home page
+
+		<nuxt-link class="text-blue-500" :to="{ name: 'auth.sign-up' }">To sign up page</nuxt-link>
 	</div>
 </template>
 
 <script>
 
-	export default {
-		layout: 'guest'
+export default {
+	layout: 'account',
+	head: {
+		title: 'Cerber - Account'
 	}
+}
 
 </script>

@@ -1,14 +1,29 @@
 <template>
 	<div class="ui-base-input relative pb-5">
 		<div class="relative">
+			<!-- <slot
+				v-if="'label' in $scopedSlots"
+				name="label"
+				:content="label"
+				_class="ui-base-input__label"
+				for="id"
+			/> -->
 			<label
+
 				class="ui-base-input__label"
 				:for="id"
 			>
 				<span>{{ label }}</span>
 			</label>
 
-			<slot name="input" :id="id" :value="ownValue" :on-input="onInput" :attrs="attrs" />
+			<slot
+				name="input"
+				:_class="['ui-base-input__input', { 'has-error': error }]"
+				:id="id"
+				:value="ownValue"
+				:on-input="onInput"
+				:attrs="attrs"
+			/>
 
 			<slot name="default" />
 
@@ -19,7 +34,7 @@
 
 		<div class="mt-0.5 leading-none absolute bottom-0 h-5 overflow-hidden flex items-end" v-if="errors">
 			<transition name="error" :duration="300">
-				<span class="message text-xs font-extralight tracking-wider text-red-500" v-if="error">{{ error }}</span>
+				<span class="message text-xs font-light tracking-wider text-red-400" v-if="error">{{ error }}</span>
 			</transition>
 		</div>
 	</div>

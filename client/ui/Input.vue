@@ -4,11 +4,14 @@
 		v-bind="$attrs"
 		@input="$emit('modelInput', $event)"
 	>
+		<!-- <template v-if="'label' in $scopedSlots" #label="props">
+			<slot name="label" v-bind="props" />
+		</template> -->
 		<template #input="props">
 			<input
 				:value="props.value"
 				@input="props.onInput"
-				class="ui-base-input__input"
+				:class="props._class"
 				:id="props.id"
 				v-on="$listeners"
 				v-bind="props.attrs"

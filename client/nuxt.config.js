@@ -39,7 +39,7 @@ export default {
 	// Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
 	plugins: [
 		{ src: '~/plugins/components.js' },
-		{ src: '~/plugins/axios.js' },
+		{ src: '~/plugins/axios.js' }
 	],
 
 	// Auto import components: https://go.nuxtjs.dev/config-components
@@ -47,8 +47,7 @@ export default {
 
 	// Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
 	buildModules: [
-		// https://go.nuxtjs.dev/tailwindcss
-		'@nuxtjs/tailwindcss'
+		'@nuxt/postcss8'
 	],
 
 	// Modules: https://go.nuxtjs.dev/config-modules
@@ -102,7 +101,7 @@ export default {
 			login: '/auth',
 			logout: '/',
 			callback: '/login',
-			home: '/manage'
+			home: '/'
 		},
 		strategies: {
 			local: false,
@@ -122,5 +121,9 @@ export default {
 				}
 			}
 		}
+	},
+
+	router: {
+		routeNameSplitter: '.'
 	}
 }

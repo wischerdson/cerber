@@ -1,7 +1,6 @@
 <template>
 	<form @submit.prevent="login" novalidate>
 		<v-input
-			class="mt-10 max-w-xs mx-auto"
 			type="email"
 			label="Email"
 			v-model="fields.login"
@@ -14,7 +13,7 @@
 		/>
 
 		<v-input
-			class="mt-10 max-w-xs mx-auto"
+			class="mt-4"
 			type="password"
 			label="Password"
 			v-model="fields.password"
@@ -23,15 +22,22 @@
 				'Пожалуйста, укажите пароль': errors.passwordRequired,
 				'Пароль неверный': errors.invalidPassword
 			}"
-		/>
+		>
+			<!-- <template #label="props">
+				<div :class="['flex items-center', ...props._class]">
+					<label :for="props.for">{{ props.content }}</label>
+					<v-action class="ml-auto text-gray-500 font-medium hover:underline" to="/password-reset">Forgot Password?</v-action>
+				</div>
+			</template> -->
+		</v-input>
 
 		<v-action
-			class="mt-10 mx-auto block"
+			class="w-full mt-10"
 			type="submit"
 			button
 			lighting
 			:loading="loading"
-		>Войти</v-action>
+		>Sign in</v-action>
 	</form>
 </template>
 

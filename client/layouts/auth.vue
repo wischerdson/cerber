@@ -1,14 +1,19 @@
 <template>
-	<div>
-		<div class="fixed top-3 right-3 px-6 py-3 bg-red-50 text-black text-lg border-red-500 border-r-4 sm:left-3 sm:border-t-2 sm:border-r-0 sm:text-center font-light" v-if="$nuxt.isOffline">Нет соединения с интернетом</div>
+	<div class="layout__auth">
 		<nuxt />
 	</div>
 </template>
 
 <script>
 
-	export default {
-
+export default {
+	head () {
+		return {
+			bodyAttrs: {
+				style: 'background-color: #0e1116'
+			}
+		}
 	}
+}
 
 </script>

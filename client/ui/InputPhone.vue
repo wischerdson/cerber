@@ -7,7 +7,7 @@
 	>
 		<template #input="props">
 			<input
-				class="ui-base-input__input"
+				:class="props._class"
 				type="tel"
 				@focus="onFocus"
 				@input="onInput"

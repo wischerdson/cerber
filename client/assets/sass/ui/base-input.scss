@@ -1,21 +1,32 @@
 #{$inputComponentSelector} {
 	&__label {
-		margin-bottom: 10px;
+		margin-bottom: 8px;
 		display: block;
 		line-height: 1;
-		text-align: center;
-		color: $ui-color-gray-600;
-		font-weight: 500;
+		text-align: left;
+		color: $ui-color-gray-400;
+		font-weight: 300;
+		font-size: .9rem;
 	}
 
 	&__input {
 		display: block;
 		width: 100%;
-		background-color: $ui-color-gray-100;
-		padding: 20px 35px;
-		font-weight: 500;
-		color: $ui-color-gray-600;
-		border-radius: 9999px;
-		font-size: $ui-font-size-lg;
+		border: 1px solid #2f3235;
+		background-color: #25282a;
+		padding: 16px 20px;
+		color: $ui-color-gray-300;
+		border-radius: 10px;
+		transition: border-color .15s ease, box-shadow .15s ease;
+
+		&.has-error {
+			border-color: $ui-color-danger;
+			box-shadow: 0 0 0 3px rgba($ui-color-danger, .2);
+		}
+
+		&:focus {
+			border-color: $ui-color-primary;
+			box-shadow: 0 0 0 3px rgba($ui-color-primary, .3);
+		}
 	}
 }
