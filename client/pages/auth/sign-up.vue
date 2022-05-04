@@ -1,8 +1,15 @@
 <template>
 	<div class="py-16">
-		<nuxt-link class="text-blue-500" :to="{ name: 'index' }">Back to home</nuxt-link>
-		<div class="mobile-container">
-			<sign-up-form />
+		<div class="container max-w-sm">
+			<div class="text-center">
+				<h1 class="text-center text-3xl text-white font-normal pt-16">Sign Up</h1>
+				<div class="text-gray-300 font-light mt-6">
+					Already have an account yet?
+					<v-action class="font-medium underline" to="/auth">Sign in here</v-action>
+				</div>
+			</div>
+
+			<sign-up-form class="mt-12" />
 		</div>
 	</div>
 </template>

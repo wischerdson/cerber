@@ -23,12 +23,12 @@
 				'Пароль неверный': errors.invalidPassword
 			}"
 		>
-			<!-- <template #label="props">
+			<template #label="props">
 				<div :class="['flex items-center', ...props._class]">
 					<label :for="props.for">{{ props.content }}</label>
-					<v-action class="ml-auto text-gray-500 font-medium hover:underline" to="/password-reset">Forgot Password?</v-action>
+					<v-action class="ml-auto text-gray-500 font-normal hover:underline" to="/password-reset">Forgot password?</v-action>
 				</div>
-			</template> -->
+			</template>
 		</v-input>
 
 		<v-action

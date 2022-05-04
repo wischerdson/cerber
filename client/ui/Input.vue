@@ -4,9 +4,9 @@
 		v-bind="$attrs"
 		@input="$emit('modelInput', $event)"
 	>
-		<!-- <template v-if="'label' in $scopedSlots" #label="props">
+		<template v-if="'label' in $scopedSlots" #label="props">
 			<slot name="label" v-bind="props" />
-		</template> -->
+		</template>
 		<template #input="props">
 			<input
 				:value="props.value"

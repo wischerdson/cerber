@@ -12,8 +12,8 @@
 		name: 'icon',
 		props: {
 			name: { type: String, required: false },
-			width: String,
-			height: String,
+			width: { type: String, required: false },
+			height: { type: String, required: false },
 			stroked: { type: Boolean, default: false, required: false }
 		},
 		mounted () {

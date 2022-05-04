@@ -1,15 +1,15 @@
 <template>
 	<div class="ui-base-input relative pb-5">
 		<div class="relative">
-			<!-- <slot
+			<slot
 				v-if="'label' in $scopedSlots"
 				name="label"
 				:content="label"
 				_class="ui-base-input__label"
-				for="id"
-			/> -->
+				:for="id"
+			/>
 			<label
-
+				v-else
 				class="ui-base-input__label"
 				:for="id"
 			>

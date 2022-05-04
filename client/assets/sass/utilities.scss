@@ -1,4 +1,4 @@
-.container, .mobile-container {
+.container {
 	width: 100%;
 	max-width: 1280px;
 	padding-left: .75rem;
@@ -18,10 +18,6 @@
 	@screen sm {
 		max-width: 100%;
 	}
-}
-
-.mobile-container {
-	max-width: 448px;
 }
 
 .visually-hidden {

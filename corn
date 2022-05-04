@@ -1,12 +1,5 @@
 #!/usr/bin/env sh
 
-# Add alias to ~/.zshrc for example:
-# alias nexa="./nexa"
-# and run in terminal 'source ~/.zshrc'
-
-# For example:
-# nexa artisan make:model User
-
 set -eu
 
 RED='\033[0;31m'

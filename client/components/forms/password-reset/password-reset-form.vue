@@ -1,7 +1,6 @@
 <template>
 	<form @submit.prevent="resetPassword" novalidate>
 		<v-input
-			class="mt-10 max-w-xs mx-auto"
 			type="email"
 			label="Email"
 			v-model="fields.email"
@@ -11,15 +10,25 @@
 				'Введите правильный email': errors.emailIsIncorrect,
 				'Пользователь не найден': errors.userNotFound
 			}"
-		/>
+		>
+			<template #label="props">
+				<div class="flex items-center" :class="props._class">
+					<label :for="props.for">{{ props.content }}</label>
+					<v-action class="ml-auto text-gray-500 font-normal hover:underline" to="/auth">
+						<v-icon width="24px" name="chevron-left" />
+						<span>Back to sign in</span>
+					</v-action>
+				</div>
+			</template>
+		</v-input>
 
 		<v-action
-			class="mt-10 mx-auto block"
+			class="mt-10 w-full"
 			type="submit"
 			button
 			lighting
 			:loading="loading"
-		>Отправить код</v-action>
+		>Send code</v-action>
 	</form>
 </template>
 
