@@ -4,7 +4,7 @@
 			<div class="text-center">
 				<h1 class="text-center text-3xl text-white font-normal pt-16">Sign Up</h1>
 				<div class="text-gray-300 font-light mt-6">
-					Already have an account yet?
+					Already have an account?
 					<v-action class="font-medium underline" to="/auth">Sign in here</v-action>
 				</div>
 			</div>

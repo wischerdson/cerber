@@ -55,7 +55,7 @@ export default {
 		// https://go.nuxtjs.dev/axios
 		'@nuxtjs/axios',
 		// https://auth.nuxtjs.org/guide
-   		'@nuxtjs/auth-next'
+		'@nuxtjs/auth-next'
 	],
 
 	// Build Configuration: https://go.nuxtjs.dev/config-build

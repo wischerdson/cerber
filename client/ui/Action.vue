@@ -10,7 +10,7 @@
 		v-bind="$attrs"
 		v-on="$listeners"
 	>
-		<div :style="{ opacity: loading ? 0 : 1 }">
+		<div class="flex items-center" :style="{ opacity: loading ? 0 : 1 }">
 			<v-icon class="mr-2" v-if="leftIcon" :name="leftIcon" />
 			<slot />
 			<v-icon class="ml-2" v-if="rightIcon" :name="rightIcon" />

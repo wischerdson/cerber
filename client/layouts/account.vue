@@ -7,13 +7,18 @@
 
 <script>
 
-	export default {
-		middleware: 'auth',
-		methods: {
-			logout () {
-				this.$auth.logout()
-			}
+export default {
+	middleware: 'auth',
+	head () {
+		return {
+			bodyAttrs: { style: 'background-color: #0e1116' }
+		}
+	},
+	methods: {
+		logout () {
+			this.$auth.logout()
 		}
 	}
+}
 
 </script>

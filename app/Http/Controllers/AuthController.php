@@ -12,7 +12,6 @@ class AuthController extends Controller
 	public function signUp(Auth $auth, Request $request): string
 	{
 		$request->validate([
-			'phone' => 'required | unique:'.\App\Models\User::class,
 			'email' => 'required | email | unique:'.\App\Models\EntryPoint::class.',login',
 			'password' => 'required | min:6 | max:60',
 			'user_agent' => 'required'
