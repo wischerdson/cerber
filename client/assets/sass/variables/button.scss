@@ -1,0 +1,68 @@
+$btn-height: 42px;
+$btn-sm-height: 28px;
+$btn-padding-x: 16px;
+$btn-sm-padding-x: 8px;
+$btn-color: $color-zinc-800;
+$btn-bg: rgba(#000, 0);
+$btn-corner-radius: 8px;
+$btn-sm-corner-radius: 6px;
+
+$btn-colors: (
+	'primary': (
+		'text': $color-white,
+		'bg': $color-primary,
+		'bg-hover': $color-primary-hover,
+		'bg-active': $color-primary-active
+	),
+	'black': (
+		'text': $color-white,
+		'bg': $color-black
+	),
+	'secondary': (
+		'text': $color-white,
+		'bg': $color-secondary,
+		'bg-hover': $color-secondary-hover,
+		'bg-active': $color-secondary-active
+	),
+	'light': (
+		'text': $color-black,
+		'bg': $color-light,
+		'bg-hover': $color-light-hover,
+		'bg-active': $color-light-active
+	),
+	'success': (
+		'text': $color-white,
+		'bg': $color-success,
+		'bg-hover': $color-success-hover,
+		'bg-active': $color-success-active
+	),
+	'danger': (
+		'text': $color-white,
+		'bg': $color-danger,
+		'bg-hover': $color-danger-hover,
+		'bg-active': $color-danger-active
+	),
+	'info': (
+		'text': $color-black,
+		'bg': $color-info,
+		'bg-hover': $color-info-hover,
+		'bg-active': $color-info-active
+	),
+	'warning': (
+		'text': $color-black,
+		'bg': $color-warning,
+		'bg-hover': $color-warning-hover,
+		'bg-active': $color-warning-active
+	),
+	'dark': (
+		'text': $color-white,
+		'bg': $color-zinc-900,
+		'bg-hover': $color-zinc-800,
+		'bg-active': $color-zinc-700
+	),
+	'link': (
+		'text': $color-blue-500,
+		'text-hover': $color-blue-600,
+		'text-active': $color-blue-700
+	)
+);

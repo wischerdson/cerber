@@ -1,0 +1,26 @@
+.container {
+	&, &-sm, &-md, &-lg, &-xl {
+		width: 100%;
+		padding-left: 1rem;
+		padding-right: 1rem;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	&, &-xl {
+		max-width: 1340px;
+
+		@screen xl {
+			max-width: 1140px;
+		}
+		@screen lg {
+			max-width: 768px;
+		}
+		@screen md {
+			max-width: 640px;
+		}
+		@screen sm {
+			max-width: 100%;
+		}
+	}
+}

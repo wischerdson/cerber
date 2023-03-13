@@ -1,18 +1,23 @@
 <template>
-	<div>
-		This is account home page
+	<div class="min-h-screen">
 
-		<nuxt-link class="text-blue-500" :to="{ name: 'auth.sign-up' }">To sign up page</nuxt-link>
 	</div>
 </template>
 
-<script>
+<script setup>
 
-export default {
-	layout: 'account',
-	head: {
-		title: 'Cerber - Account'
-	}
-}
+import { definePageMeta, useHead } from '#imports'
+
+useHead({
+	'bodyAttrs': {
+		'class': 'bg-zinc-900'
+	},
+	'title': 'Sneakerdark - магазин одежды, обуви и аксессуаров'
+})
+
+definePageMeta({
+	header: { absolute: true, appearance: 'dark' }
+})
+
 
 </script>

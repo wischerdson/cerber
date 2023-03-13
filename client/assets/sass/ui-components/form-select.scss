@@ -1,0 +1,48 @@
+@import '../variables/form-select.scss';
+
+.form-select {
+	display: block;
+	width: 100%;
+	padding: $select-padding-y $select-padding-x;
+	line-height: $select-line-height;
+	color: $select-color;
+	background-color: $select-bg;
+	background-image: url('~/assets/svg/expand-more.svg');
+	background-size: 24px;
+	background-position: center right .75rem;
+	border: 1px solid $select-border-color;
+	border-radius: $select-corner-radius;
+	transition: border-color .1s ease, box-shadow .1s ease;
+
+	&:hover {
+		border-color: $select-hovered-border-color;
+	}
+
+	&:focus {
+		box-shadow: 0 0 0 2px rgba($select-focused-border-color, .3);
+		border-color: $select-focused-border-color;
+	}
+
+	&:disabled {
+		color: $select-disabled-color;
+		background-color: $select-disabled-bg;
+		border-color: $select-disabled-border-color;
+		opacity: 1;
+		cursor: default;
+	}
+
+	&.is-invalid, &.is-invalid-with-icon {
+		box-shadow: 0 0 0 2px rgba($select-invalid-border-color, .3);
+		border-color: $select-invalid-border-color;
+	}
+
+	&.is-invalid-with-icon {
+		padding-right: $select-error-icon-width;
+		box-shadow: 0 0 0 1px $select-invalid-border-color;
+		border-color: $select-invalid-border-color;
+	}
+
+	&[readonly] {
+		color: $select-color;
+	}
+}

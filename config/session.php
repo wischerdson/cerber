@@ -59,7 +59,7 @@ return [
 	|
 	*/
 
-	'files' => storage_path('framework/sessions'),
+	'files' => base_path('.runtime/sessions'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -85,7 +85,7 @@ return [
 	|
 	*/
 
-	'table' => 'laravel_sessions',
+	'table' => '_sessions',
 
 	/*
 	|--------------------------------------------------------------------------

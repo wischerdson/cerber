@@ -1,0 +1,62 @@
+.form-range__slider {
+	position: relative;
+	height: 20px;
+}
+
+.form-range__slider-input {
+	display: block;
+	width: 100%;
+	position: absolute;
+	z-index: 1;
+	left: 0;
+	right: 0;
+	background: rgba(255, 255, 255, 0);
+	pointer-events: none;
+
+	&::-webkit-slider-thumb, &::-moz-range-thumb {
+		width: 22px;
+		height: 22px;
+		background-color: theme('colors.violet.800');
+		transition: background-color .15s ease;
+		border-radius: 999px;
+		pointer-events: auto;
+		-webkit-appearance: none;
+ 		appearance: none;
+		border: none;
+		cursor: pointer;
+	}
+
+	&:hover::-webkit-slider-thumb, &:hover::-moz-range-thumb {
+		background-color: theme('colors.violet.900');
+	}
+}
+
+.form-range__progress-wrapper {
+	position: absolute;
+	z-index: -1;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	display: flex;
+	align-items: center;
+
+	&:before {
+		content: "";
+		display: block;
+		position: absolute;
+		left: 0;
+		right: 0;
+		height: 3px;
+		background-color: theme('colors.zinc.300');
+		border-radius: 9px;
+	}
+}
+
+.form-range__progress {
+	position: absolute;
+	left: 20px;
+	right: 10px;
+	height: 3px;
+	background-color: theme('colors.violet.900');
+}

@@ -1,23 +1,6 @@
-.container {
-	width: 100%;
-	max-width: 1280px;
-	padding-left: .75rem;
-	padding-right: .75rem;
-	margin-left: auto;
-	margin-right: auto;
-
-	@screen xl {
-		max-width: 1024px;
-	}
-	@screen lg {
-		max-width: 768px;
-	}
-	@screen md {
-		max-width: 640px;
-	}
-	@screen sm {
-		max-width: 100%;
-	}
+.vertical-text {
+	writing-mode: tb-rl;
+	transform: rotate(180deg);
 }
 
 .visually-hidden {
@@ -28,6 +11,10 @@
 	height: 1px;
 	width: 1px;
 	overflow: hidden;
+}
+
+.shadow {
+	box-shadow: 0px 7px 20px 0 rgba(#000, 0.075);
 }
 
 .vertical-text {

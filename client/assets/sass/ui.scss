@@ -1,0 +1,20 @@
+@import './variables/font.scss';
+@import './variables/colors.scss';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+	@import './ui-components/container.scss';
+	@import './ui-components/svg-asset.scss';
+	@import './ui-components/button.scss';
+	@import './ui-components/form-control.scss';
+	@import './ui-components/form-select.scss';
+	@import './ui-components/form-check.scss';
+	@import './ui-components/form-range.scss';
+	@import './ui-components/pagination.scss';
+	@import './ui-components/modal.scss';
+	@import './ui-components/gallery.scss';
+	@import './ui-components/table.scss';
+}

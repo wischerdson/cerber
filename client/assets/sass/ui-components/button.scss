@@ -1,0 +1,90 @@
+@import '../variables/button.scss';
+
+.btn {
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	height: $btn-height;
+	padding: 0 $btn-padding-x;
+	color: $btn-color;
+	text-align: center;
+	text-decoration: none;
+	vertical-align: middle;
+	cursor: pointer;
+	user-select: none;
+	border: 1px solid rgba(#000, 0);
+	border-radius: $btn-corner-radius;
+	background-color: $btn-bg;
+	transition: color .15s ease, background-color .15s ease, border-color .15s ease, box-shadow .15s ease, opacity .4s ease;
+	font-weight: 400;
+
+	&-sm {
+		padding: 0 $btn-sm-padding-x;
+		height: $btn-sm-height;
+		border-radius: $btn-sm-corner-radius;
+		font-size: .875rem;
+	}
+
+	&-square {
+		width: $btn-height;
+		padding: 0;
+
+		&.btn-sm {
+			width: $btn-sm-height;
+		}
+	}
+
+	&-link {
+		text-decoration: underline;
+	}
+
+	&:active {
+		transition-duration: 0s, 0s, 0s, 0s, 0s;
+		opacity: .6;
+	}
+
+	@each $name in map-keys($btn-colors) {
+		$text: map-get($btn-colors, $name, 'text');
+		$text-hover: map-get($btn-colors, $name, 'text-hover');
+		$text-active: map-get($btn-colors, $name, 'text-active');
+		$bg: map-get($btn-colors, $name, 'bg');
+		$bg-hover: map-get($btn-colors, $name, 'bg-hover');
+		$bg-active: map-get($btn-colors, $name, 'bg-active');
+
+		&-#{$name} {
+			border-color: $bg;
+			background-color: $bg;
+			color: $text;
+		}
+
+		&-outline-#{$name} {
+			border-color: $bg;
+			color: $bg;
+		}
+
+		@if $bg {
+			&-translucent-#{$name} {
+				background-color: rgba($bg, 0.1);
+				color: $bg;
+
+				&:hover {
+					background-color: rgba($bg, .2);
+				}
+			}
+		}
+
+		&-#{$name}, &-outline-#{$name} {
+			&:hover {
+				color: if($text-hover, $text-hover, $text);
+				background-color: $bg-hover;
+				border-color: $bg-hover;
+			}
+		}
+	}
+
+	&.disabled, &:disabled, fieldset:disabled & {
+		opacity: .6;
+		pointer-events: none;
+		cursor: default;
+	}
+}

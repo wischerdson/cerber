@@ -12,7 +12,6 @@ services:
     volumes:
       - .:/app
     working_dir: /app
-    command: sh -c "php artisan queue:work"
 
   nginx:
     image: nginx:alpine
@@ -22,17 +21,13 @@ services:
     depends_on:
       - php
 
-  composer:
-    image: composer:latest
+  nodejs:
+    image: node:lts-alpine3.17
     volumes:
       - .:/app
-    environment:
-      TERM: "xterm-256color"
+    working_dir: /app
 
-  nodejs:
-    image: node:17-alpine3.15
+  redis:
+    image: redis:7.0.9-alpine3.17
     volumes:
-      - .:/usr/app
-    working_dir: /usr/app
-    environment:
-      NODE_OPTIONS: --openssl-legacy-provider
+      - ./.docker/redis/redis.conf:/usr/local/etc/redis/redis.conf:ro

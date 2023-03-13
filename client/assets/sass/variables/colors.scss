@@ -1,0 +1,36 @@
+@import './tailwind-colors.scss';
+
+$color-primary: $color-violet-800;
+$color-primary-hover: $color-violet-900;
+$color-primary-active: $color-violet-500;
+
+$color-secondary: $color-zinc-400;
+$color-secondary-hover: $color-zinc-500;
+$color-secondary-active: $color-zinc-600;
+
+$color-light: $color-zinc-100;
+$color-light-hover: $color-zinc-200;
+$color-light-active: $color-zinc-300;
+
+$color-success: $color-emerald-500;
+$color-success-hover: $color-emerald-600;
+$color-success-active: $color-emerald-700;
+
+$color-danger: $color-red-600;
+$color-danger-hover: $color-red-700;
+$color-danger-active: $color-red-800;
+
+$color-info: $color-cyan-300;
+$color-info-hover: $color-cyan-400;
+$color-info-active: $color-cyan-500;
+
+$color-warning: $color-amber-400;
+$color-warning-hover: $color-amber-500;
+$color-warning-active: $color-amber-600;
+
+$color-black-hover: $color-zinc-800;
+$color-black-active: $color-zinc-700;
+
+$color-whatsapp: #43d854;
+$color-whatsapp-hover: darken(#43d854, 10%);
+$color-whatsapp-active: darken(#43d854, 20%);

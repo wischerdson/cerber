@@ -1,97 +1,25 @@
-/* Roboto */
-@font-face {
-	font-family: 'Roboto';
-	src: url('/font/Roboto-Thin.ttf') format('truetype');
-	font-weight: 100;
-	font-style: normal;
-	font-display: block;
-}
+$fonts: (
+	("weight": 300, "style": "normal", "file": "/fonts/OpenSans/OpenSans-Light.ttf"),
+	("weight": 400, "style": "normal", "file": "/fonts/OpenSans/OpenSans-Regular.ttf"),
+	("weight": 500, "style": "normal", "file": "/fonts/OpenSans/OpenSans-Medium.ttf"),
+	("weight": 600, "style": "normal", "file": "/fonts/OpenSans/OpenSans-SemiBold.ttf"),
+	("weight": 700, "style": "normal", "file": "/fonts/OpenSans/OpenSans-Bold.ttf"),
+	("weight": 800, "style": "normal", "file": "/fonts/OpenSans/OpenSans-ExtraBold.ttf"),
 
-@font-face {
-	font-family: 'Roboto';
-	src: url('/font/Roboto-Light.ttf') format('truetype');
-	font-weight: 300;
-	font-style: normal;
-	font-display: block;
-}
+	("weight": 300, "style": "italic", "file": "/fonts/OpenSans/OpenSans-LightItalic.ttf"),
+	("weight": 400, "style": "italic", "file": "/fonts/OpenSans/OpenSans-Italic.ttf"),
+	("weight": 500, "style": "italic", "file": "/fonts/OpenSans/OpenSans-MediumItalic.ttf"),
+	("weight": 600, "style": "italic", "file": "/fonts/OpenSans/OpenSans-SemiBoldItalic.ttf"),
+	("weight": 700, "style": "italic", "file": "/fonts/OpenSans/OpenSans-BoldItalic.ttf"),
+	("weight": 800, "style": "italic", "file": "/fonts/OpenSans/OpenSans-ExtraBoldItalic.ttf")
+);
 
-@font-face {
-	font-family: 'Roboto';
-	src: url('/font/Roboto-Regular.ttf') format('truetype');
-	font-weight: 400;
-	font-style: normal;
-	font-display: block;
-}
-
-@font-face {
-	font-family: 'Roboto';
-	src: url('/font/Roboto-Medium.ttf') format('truetype');
-	font-weight: 500;
-	font-style: normal;
-	font-display: block;
-}
-
-@font-face {
-	font-family: 'Roboto';
-	src: url('/font/Roboto-Bold.ttf') format('truetype');
-	font-weight: 700;
-	font-style: normal;
-	font-display: block;
-}
-
-@font-face {
-	font-family: 'Roboto';
-	src: url('/font/Roboto-Black.ttf') format('truetype');
-	font-weight: 900;
-	font-style: normal;
-	font-display: block;
-}
-
-/* Roboto Italic */
-@font-face {
-	font-family: 'Roboto';
-	src: url('/font/Roboto-ThinItalic.ttf') format('truetype');
-	font-weight: 100;
-	font-style: italic;
-	font-display: block;
-}
-
-@font-face {
-	font-family: 'Roboto';
-	src: url('/font/Roboto-LightItalic.ttf') format('truetype');
-	font-weight: 300;
-	font-style: italic;
-	font-display: block;
-}
-
-@font-face {
-	font-family: 'Roboto';
-	src: url('/font/Roboto-Italic.ttf') format('truetype');
-	font-weight: 400;
-	font-style: italic;
-	font-display: block;
-}
-
-@font-face {
-	font-family: 'Roboto';
-	src: url('/font/Roboto-MediumItalic.ttf') format('truetype');
-	font-weight: 500;
-	font-style: italic;
-	font-display: block;
-}
-
-@font-face {
-	font-family: 'Roboto';
-	src: url('/font/Roboto-BoldItalic.ttf') format('truetype');
-	font-weight: 700;
-	font-style: italic;
-	font-display: block;
-}
-
-@font-face {
-	font-family: 'Roboto';
-	src: url('/font/Roboto-BlackItalic.ttf') format('truetype');
-	font-weight: 900;
-	font-style: italic;
-	font-display: block;
+@each $font in $fonts {
+	@font-face {
+		font-family: 'OpenSans';
+		src: url('#{map-get($font, "file")}') format('truetype');
+		font-weight: #{map-get($font, "weight")};
+		font-style: #{map-get($font, "style")};
+		font-display: block;
+	}
 }

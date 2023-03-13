@@ -1,0 +1,22 @@
+.form-control {
+	padding: 8.44px 16px;
+	line-height: 1.32;
+	color: #000;
+	border-radius: 8px;
+	transition: border-color .1s ease, box-shadow .1s ease;
+	border: 1px solid theme('colors.zinc.200');
+	background-color: theme('colors.zinc.50');
+
+	&:hover {
+		border-color: theme('colors.zinc.400');
+	}
+
+	&:focus {
+		border-color: $color-violet-800;
+		box-shadow: 0 0 0 2px rgba($color-violet-800, .3);
+	}
+}
+
+textarea.form-control {
+	min-height: 41.3667px;
+}

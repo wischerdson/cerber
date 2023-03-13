@@ -1,0 +1,46 @@
+.form-check {
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+
+	&:hover {
+		.form-check__visual-checkbox {
+			border-color: theme('colors.zinc.400');
+		}
+	}
+
+	input[type="checkbox"] {
+		&:focus-visible {
+			& ~ .form-check__visual-checkbox {
+				border-color: theme('colors.violet.800');
+				box-shadow: 0 0 0 2px rgba(#5b21b6, .3);
+			}
+		}
+
+		&:checked {
+			& ~ .form-check__visual-checkbox {
+				border-color: theme('colors.violet.800');
+				background-color: theme('colors.violet.800');
+			}
+		}
+	}
+}
+
+.form-check__visual-checkbox {
+	width: 19px;
+	height: 19px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: 1px solid theme('colors.zinc.300');
+	background-color: theme('colors.zinc.50');
+	transition: background-color .15s ease, border-color .15s ease;
+	border-radius: 5px;
+	margin-right: 8px;
+	color: #fff;
+
+	&.checked {
+		border-color: theme('colors.violet.800');
+		background-color: theme('colors.violet.800');
+	}
+}

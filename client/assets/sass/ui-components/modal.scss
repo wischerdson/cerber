@@ -1,0 +1,23 @@
+.modal {
+	&.fade-enter-active, &.fade-leave-active {
+		transition: opacity .5s ease;
+
+		.modal__darken-bg {
+			transition: opacity .5s ease;
+		}
+
+		.modal__content {
+			transition: opacity .25s ease, transform .5s ease;
+		}
+	}
+
+	&.fade-enter-from, &.fade-leave-to {
+		.modal__darken-bg, .modal__content {
+			opacity: 0;
+		}
+	}
+
+	&.fade-enter-from .modal__content {
+		transform: scale(.9);
+	}
+}

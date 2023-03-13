@@ -1,60 +1,245 @@
-*, *:before, *:after  {
+*, *::before, *::after {
+	box-sizing: border-box;
 	background-position: center;
 	background-size: cover;
 	background-repeat: no-repeat;
 	-webkit-overflow-scrolling: touch;
+	border-style: solid;
+	border-width: 0;
+}
+
+::before,
+::after {
+	--tw-content: '';
+}
+
+html {
+	line-height: 1;
+	-webkit-text-size-adjust: 100%;
+	min-height: 100%;
+}
+
+html:focus-within {
+	scroll-behavior: smooth;
+}
+
+body, blockquote, dl, dd, h1, h2, h3, h4, h5, h6, hr, figure, p, pre {
+	margin: 0;
+}
+
+/* Remove the default font size and weight for headings. */
+h1, h2, h3, h4, h5, h6 {
+	font-size: inherit;
+	font-weight: inherit;
 }
 
 body {
-	line-height: 1;
 	cursor: default;
-	position: relative;
 	overflow-x: hidden;
+	line-height: inherit;
+	font-weight: 400;
+	min-height: inherit;
+	text-rendering: optimizeSpeed;
 }
 
-input, textarea, select {
-	background: none;
-	appearance: none;
-	-webkit-appearance: none;
-	border-radius: 0;
-	font-size: 16px;
-
-	&:focus {
-		outline: none;
-	}
+fieldset {
+	margin: 0;
+	padding: 0;
+	border: none;
 }
 
-input[type="checkbox"], input[type="radio"] {
-	display: none;
-}
-
-input:disabled {
-	color: $ui-color-gray-500;
-}
-
-input[type="number"] {
-	appearance: textfield;
-}
-
-input:-webkit-outer-spin-button,
-input:-webkit-inner-spin-button {
-	-webkit-appearance: none;
-}
-
-a, label, button, input, select {
-	-webkit-tap-highlight-color: transparent;
-}
-
-img {
-	pointer-events: none;
-	user-select: none;
+legend {
+	padding: 0;
 }
 
 cite {
 	font-style: normal;
 }
 
+ol, ul, menu {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+/* Add the correct display in Chrome and Safari. */
+summary {
+	display: list-item;
+}
+
 hr {
 	display: block;
+	height: 0;
+	color: inherit;
+	border-top-width: 1px;
+}
+
+/* Add the correct text decoration in Chrome, Edge, and Safari. */
+abbr:where([title]) {
+	text-decoration: underline dotted;
+}
+
+/* Reset links to optimize for opt-in styling instead of opt-out. */
+a {
+	color: inherit;
+	text-decoration: inherit;
+}
+
+/* Add the correct font weight in Edge and Safari. */
+b, strong {
+	font-weight: bolder;
+}
+
+code, kbd, samp, pre {
+	font-size: 1em;
+}
+
+small {
+	font-size: 80%;
+}
+
+/* Prevent `sub` and `sup` elements from affecting the line height in all browsers. */
+sub, sup {
+	font-size: 75%;
+	line-height: 0;
+	position: relative;
+	vertical-align: baseline;
+}
+
+sub {
+	bottom: -0.25em;
+}
+
+sup {
+	top: -0.5em;
+}
+
+/*
+1. Remove text indentation from table contents in Chrome and Safari. (https://bugs.chromium.org/p/chromium/issues/detail?id=999088, https://bugs.webkit.org/show_bug.cgi?id=201297)
+2. Correct table border color inheritance in all Chrome and Safari. (https://bugs.chromium.org/p/chromium/issues/detail?id=935729, https://bugs.webkit.org/show_bug.cgi?id=195016)
+3. Remove gaps between table borders by default.
+*/
+table {
+	text-indent: 0; /* 1 */
+	border-color: inherit; /* 2 */
+	border-collapse: collapse; /* 3 */
+}
+
+td {
+	padding: 0;
+}
+
+img, picture, video {
+	max-width: 100%;
+	display: block;
+	user-select: none;
+}
+
+img, picture {
+	pointer-events: none;
+}
+
+button, select {
+	cursor: pointer;
+	text-transform: none;
+}
+
+/*
+1. Correct the inability to style clickable types in iOS and Safari.
+2. Remove default button styles.
+*/
+button, [type='button'], [type='reset'], [type='submit'] {
+	-webkit-appearance: button; /* 1 */
+	background: none; /* 2 */
+}
+
+:-moz-focusring {
+	outline: auto;
+}
+
+:-moz-ui-invalid {
+	box-shadow: none;
+}
+
+progress {
+	vertical-align: baseline;
+}
+
+a, label, button, input, select {
+	-webkit-tap-highlight-color: transparent;
+}
+
+[type='search'] {
+	-webkit-appearance: textfield;
+	outline-offset: -2px; /* 2 */
+}
+
+/* Remove the inner padding in Chrome and Safari on macOS. */
+::-webkit-search-decoration {
+	-webkit-appearance: none;
+}
+
+/* Prevent resizing textareas horizontally by default. */
+textarea {
+	resize: vertical;
+}
+
+::-webkit-file-upload-button {
+	-webkit-appearance: button;
+	font: inherit;
+}
+
+/*
+1. Make replaced elements `display: block` by default. (https://github.com/mozdevs/cssremedy/issues/14)
+2. Add `vertical-align: middle` to align replaced elements more sensibly by default. (https://github.com/jensimmons/cssremedy/issues/14#issuecomment-634934210)
+   This can trigger a poorly considered lint error in some tools but is included by design.
+*/
+img, svg, video, canvas, audio, iframe, embed, object {
+	display: block; /* 1 */
+	vertical-align: middle; /* 2 */
+}
+
+button, input, optgroup, select, textarea {
+	font-family: inherit;
+	font-size: 100%;
+	font-weight: inherit;
+	line-height: inherit;
+	color: inherit;
+	margin: 0;
+	padding: 0;
+	background-image: none;
+	background-color: none;
+	appearance: none;
+	-webkit-appearance: none;
+	border-radius: 0;
 	border: none;
+
+	&:focus {
+		outline: none;
+	}
+}
+
+::-webkit-inner-spin-button,
+::-webkit-outer-spin-button {
+	appearance: none;
+	-webkit-appearance: none;
+}
+
+[type="number"] {
+	appearance: textfield;
+	-webkit-appearance: textfield;
+}
+
+/* Remove all animations and transitions for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+	html:focus-within {
+		scroll-behavior: auto;
+	}
+
+	*, *::before, *::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
 }

@@ -1,0 +1,21 @@
+$select-line-height: 1.32;
+$select-height: 42px;
+$select-padding-x: 16px;
+$select-padding-y: calc((-2px + $select-height - $base-font-size * $select-line-height)/2);
+$select-corner-radius: 8px;
+
+/* Neutral colors */
+$select-color: $color-black;
+$select-bg: $color-zinc-50;
+$select-border-color: $color-zinc-200;
+
+$select-hovered-border-color: $color-zinc-400;
+$select-focused-border-color: $color-primary;
+
+/* Disabled colors */
+$select-disabled-color: $color-zinc-500;
+$select-disabled-bg: $color-zinc-200;
+$select-disabled-border-color: $color-zinc-300;
+
+$select-invalid-border-color: $color-red-500;
+$select-error-icon-width: 40px;

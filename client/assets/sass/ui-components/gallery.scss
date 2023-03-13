@@ -1,0 +1,29 @@
+.gallery__slider {
+	scrollbar-width: none;
+}
+
+.gallery-pagination {
+	scrollbar-width: none;
+}
+
+.gallery-navigation {
+	box-shadow: 0px 7px 10px 0 rgba(#000, 0.1);
+
+	&__item {
+		border: 1px solid rgba(#000, 0);
+		transition: border-color .15s ease, box-shadow .15s ease, opacity .15s ease;
+
+		&:hover {
+			border: 1px solid theme('colors.zinc.500');
+		}
+
+		&.active {
+			border-color: theme('colors.violet.800');
+			box-shadow: 0 0 0 2px rgba($color-violet-800, .3);
+		}
+	}
+}
+
+.gallery__navigation-action {
+	box-shadow: 0px 7px 20px 0 rgba(#000, 0.05);
+}

@@ -1,88 +1,113 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 set -eu
 
 RED='\033[0;31m'
+CIAN='\033[0;36m'
+PURPLE='\033[0;35m'
 NC='\033[0m'
 
+path=$(dirname "$(realpath $0)")
+
+info_flag=0
+dry_run_flag=0
+
+while [[ "$#" -gt 0 ]]; do
+	case $1 in
+		-i|--info) info_flag=1; shift ;;
+		--dry-run)
+			dry_run_flag=1
+			info_flag=1
+			shift ;;
+		-*|--*)
+			echo "Unknown option $1"
+			exit 1
+		;;
+		*) break ;;
+	esac
+done
+
 # Ensure that there is .env file
-if [ ! -f ./.env ]; then
-	echo "${RED}The .env file is missing, but can be installed with:${NC} \n\n\tcp .env.example .env\n"
+if [ ! -f $path/.env ]; then
+	echo -e "${RED}The .env file is missing, but can be installed with:${NC} \n\n\tcp .env.example .env\n"
 	exit 1
 fi
 
 set -a
-. ./.env
+. $path/.env
 set +a
 
-getDockerComposeFiles() {
-	dockerComposeFiles="-f docker-compose.yaml"
+dockerComposeFiles=("docker-compose.yaml")
 
-	if [ "$APP_ENV" = "local" ]; then
-		dockerComposeFiles="$dockerComposeFiles -f docker-compose.dev.yaml"
-	else
-		dockerComposeFiles="$dockerComposeFiles -f docker-compose.prod.yaml"
-	fi
+if [ "$APP_ENV" = "local" ]; then
+	dockerComposeFiles+=("docker-compose.dev.yaml")
+else
+	dockerComposeFiles+=("docker-compose.prod.yaml")
+fi
 
-	dockerComposeOverrideFile="docker-compose.override.yaml"
-	if [ -f "$dockerComposeOverrideFile" ]; then
-		dockerComposeFiles="$dockerComposeFiles -f $dockerComposeOverrideFile"
-	fi
+if [ -f $path/docker-compose.override.yaml ]; then
+	dockerComposeFiles+=("docker-compose.override.yaml")
+fi
 
-	echo $dockerComposeFiles
-}
-
-up() {
-	dockerComposeFiles=$(getDockerComposeFiles)
-	echo "The following docker-compose files are used: \t$dockerComposeFiles"
-	docker-compose $dockerComposeFiles up --remove-orphans -d
-}
+initCommand="docker-compose "
+for i in ${dockerComposeFiles[@]}; do
+	initCommand+="-f $path/$i "
+done
 
 if [ $# = 0 ]; then
+	$initCommand
 	exit 0
 fi
 
 command=$1
-
 shift 1
 
 case $command in
-	"artisan" | "art")
-		docker-compose exec php php artisan $@
-   		;;
+	"php")
+		runOrExec="exec"
+		if [ -z `docker-compose ps -q php` ] || [ -z `docker ps -q --no-trunc | grep $(docker-compose ps -q php)` ]; then
+			runOrExec="run --rm"
+		fi
+		fullCommand="${initCommand}${runOrExec} php $@"
+	;;
 
-  	"composer")
-		docker-compose run composer $@
-		;;
+	"artisan" | "art" | "laravel" | "lara")
+		runOrExec="exec"
+		if [ -z `docker-compose ps -q php` ] || [ -z `docker ps -q --no-trunc | grep $(docker-compose ps -q php)` ]; then
+			runOrExec="run --rm"
+		fi
+		fullCommand="${initCommand}${runOrExec} php php /app/artisan $@"
+	;;
+
+	"composer")
+		runOrExec="exec"
+		if [ -z `docker-compose ps -q php` ] || [ -z `docker ps -q --no-trunc | grep $(docker-compose ps -q php)` ]; then
+			runOrExec="run --rm"
+		fi
+		fullCommand="${initCommand}${runOrExec} php composer $@"
+	;;
 
 	"npm")
-		docker-compose exec nodejs npm $@
-		;;
-
-	"down")
-		if [ "$(docker ps | grep 'nexa')" != "" ]; then
-			docker-compose $(getDockerComposeFiles) down
+		runOrExec="exec"
+		if [ -z `docker-compose ps -q nodejs` ] || [ -z `docker ps -q --no-trunc | grep $(docker-compose ps -q nodejs)` ]; then
+			runOrExec="run --rm"
 		fi
-		;;
+		fullCommand="${initCommand}${runOrExec} nodejs npm $@"
+	;;
 
-	"self-signed-cert")
-		/bin/bash ./.bin/self-signed-cert.sh
-		;;
-
-	"up")
-		if [ "$(docker ps | grep 'nexa')" = "" ]; then
-			up
-		fi
-		;;
-
-	"restart")
-		if [ "$(docker ps | grep 'nexa')" != "" ]; then
-			docker-compose $(getDockerComposeFiles) down
-		fi
-		up
-		;;
+	"ngrok")
+		fullCommand="${initCommand}run ngrok http host.docker.internal:80 --region=eu"
+	;;
 
 	*)
-		echo -n "${RED}Unknown command\n${NC}"
-		;;
+		fullCommand="${initCommand}${command} $@"
+	;;
 esac
+
+if [ $info_flag = 1 ]; then
+	echo -e "${PURPLE}${fullCommand}${NC}\n"
+fi
+
+if [ $dry_run_flag = 0 ]; then
+	$fullCommand
+fi

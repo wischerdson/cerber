@@ -1,0 +1,12 @@
+.pagination {
+	.page-link {
+		&:hover {
+			background-color: theme('colors.zinc.100');
+		}
+
+		&.active {
+			background-color: theme('colors.violet.800');
+			color: #fff;
+		}
+	}
+}
