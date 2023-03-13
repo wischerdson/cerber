@@ -16,6 +16,7 @@
 	border-radius: $btn-corner-radius;
 	background-color: $btn-bg;
 	transition: color .15s ease, background-color .15s ease, border-color .15s ease, box-shadow .15s ease, opacity .4s ease;
+	transition-delay: 0s, 0s, 0s, 0s, .25s;
 	font-weight: 400;
 
 	&-sm {
@@ -40,7 +41,8 @@
 
 	&:active {
 		transition-duration: 0s, 0s, 0s, 0s, 0s;
-		opacity: .6;
+		transition-delay: 0s, 0s, 0s, 0s, 0s;
+		opacity: .5;
 	}
 
 	@each $name in map-keys($btn-colors) {

@@ -52,7 +52,7 @@
 
 import FormCheck from '~/components/common/form-check/FormCheck.vue'
 import FormRange from '~/components/common/FormRange.vue'
-import { ref, reactive } from '#imports'
+import { ref } from '#imports'
 
 const s = ref([])
 const b = ref(false)

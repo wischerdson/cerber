@@ -3,8 +3,7 @@ const colors = require('tailwindcss/colors')
 module.exports = {
 	corePlugins: {
 		preflight: false,
-		container: false,
-		boxShadow: false
+		container: false
 	},
 	theme: {
 		extend: {
@@ -38,6 +37,9 @@ module.exports = {
 				'9/12': '75%',
 				'10/12': '83.333333%',
 				'11/12': '91.666667%',
+			},
+			boxShadow: {
+				"DEFAULT": "0px 7px 20px 0 rgb(0 0 0 / 0.05)",
 			}
 		},
 		fontFamily: {

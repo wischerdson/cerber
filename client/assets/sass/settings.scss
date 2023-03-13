@@ -9,7 +9,7 @@ body {
 	position: relative;
 }
 
-#__nuxt {
+#app {
 	min-height: inherit;
 }
 
@@ -17,10 +17,9 @@ code, kbd, samp, pre {
 	font-family: $font-family-mono;
 }
 
-input:autofill,
-input:-webkit-autofill {
+input:autofill {
 	background: none;
-	box-shadow: inset 0 0 0 1000px #fff;
+	box-shadow: unset;
 	-webkit-text-fill-color: #000;
 }
 

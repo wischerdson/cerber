@@ -1,0 +1,17 @@
+.loader {
+	&-border {
+		width: 24px;
+		height: 24px;
+		border-radius: 100%;
+		border-top: 4px solid $color-zinc-500;
+		border-left: 3px solid $color-zinc-500;
+		border-right: 4px solid rgba(#000, 0);
+		border-bottom: 0px solid rgba(#000, 0);
+		animation: spinner 1s linear infinite;
+
+		@keyframes spinner {
+			from { transform: rotate(0); }
+			to { transform: rotate(360deg); }
+		}
+	}
+}

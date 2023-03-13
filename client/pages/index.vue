@@ -1,23 +1,14 @@
 <template>
-	<div class="min-h-screen">
-
-	</div>
+	<Login />
 </template>
 
 <script setup>
 
-import { definePageMeta, useHead } from '#imports'
+import { useHead } from '#imports'
+import Login from './auth/login.vue'
 
 useHead({
-	'bodyAttrs': {
-		'class': 'bg-zinc-900'
-	},
-	'title': 'Sneakerdark - магазин одежды, обуви и аксессуаров'
+	'title': 'Cerber'
 })
-
-definePageMeta({
-	header: { absolute: true, appearance: 'dark' }
-})
-
 
 </script>

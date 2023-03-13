@@ -3,17 +3,19 @@
 	line-height: 1.32;
 	color: #000;
 	border-radius: 8px;
-	transition: border-color .1s ease, box-shadow .1s ease;
+	transition: border-color .15s ease, box-shadow .15s ease, background-color .15s ease;
 	border: 1px solid theme('colors.zinc.200');
 	background-color: theme('colors.zinc.50');
+	box-shadow: 0 0 0 3px rgba($color-slate-800, 0);
 
 	&:hover {
 		border-color: theme('colors.zinc.400');
 	}
 
 	&:focus {
-		border-color: $color-violet-800;
-		box-shadow: 0 0 0 2px rgba($color-violet-800, .3);
+		border-color: $color-slate-800;
+		// box-shadow: 0 0 0 3px rgba($color-slate-800, .2);
+		background-color: $color-white;
 	}
 }
 
