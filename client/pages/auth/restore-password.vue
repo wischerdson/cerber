@@ -5,29 +5,24 @@
 		</div>
 		<div>
 			<div class="w-full max-w-sm py-10 shadow rounded-2xl bg-white sm:bg-transparent sm:shadow-none">
-				<h1 class="text-center font-medium text-2xl text-zinc-800">Sign in</h1>
+				<h1 class="text-center font-medium text-2xl text-zinc-800">Restore password</h1>
 				<form class="mx-10 sm:mx-6 mt-10">
 					<div>
 						<label class="text-sm" for="sign_in__login">Login (or email)</label>
 						<input class="form-control w-full mt-1.5" id="sign_in__login" type="text">
 					</div>
-					<div class="mt-6">
-						<label class="text-sm" for="sign_in__password">Password</label>
-						<input class="form-control w-full mt-1.5" id="sign_in__password" type="password">
-					</div>
 					<div class="text-center mt-6">
-						<button class="btn flex-col h-auto" type="button" @click="s = !s">
-							<div class="w-10 h-10 border border-zinc-500 text-zinc-500 rounded-full flex items-center justify-center">
-								<icon v-if="s" size="26px" name="svg-spinners:tadpole" />
-								<icon v-else size="32px" name="material-symbols:arrow-right-alt-rounded" />
+						<button class="btn btn-primary relative" type="button" @click="s = !s">
+							<span :class="{ 'opacity-0': s }">Restore</span>
+							<div class="absolute inset-0 flex items-center justify-center" v-if="s">
+								<icon size="26px" name="svg-spinners:tadpole" />
 							</div>
-							<span class="mt-2 font-medium text-zinc-500">Sign in</span>
 						</button>
 					</div>
 				</form>
 			</div>
 			<div class="text-center mt-8 sm:mt-0 sm:mb-8 text-xs text-zinc-500">
-				<NuxtLink class="underline hover:no-underline hover:text-black" to="/auth/restore-password">Restore password</NuxtLink>
+				<NuxtLink class="underline hover:no-underline hover:text-black" to="/">Sign in</NuxtLink>
 				<span> | </span>
 				<NuxtLink class="underline hover:no-underline hover:text-black" to="/auth/register">Register</NuxtLink>
 			</div>

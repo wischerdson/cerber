@@ -68,8 +68,6 @@ export default defineNuxtConfig({
 	 * https://nuxt.com/docs/api/configuration/nuxt-config#css
 	 */
 	css: [
-		'~/assets/sass/font.scss',
-		'~/assets/sass/reset.scss',
 		'~/assets/sass/app.scss',
 	],
 
