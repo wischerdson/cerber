@@ -3,6 +3,8 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -53,9 +55,7 @@ class Handler extends ExceptionHandler
 		$errors = [];
 
 		foreach ($exception->validator->failed() as $field => $rule) {
-			$errors[$field] = array_map(function (string $rule) {
-				return Str::lower($rule);
-			}, array_keys($rule));
+			$errors[$field] = array_map(fn (string $rule) => Str::lower($rule), array_keys($rule));
 		}
 
 		return response()->json([

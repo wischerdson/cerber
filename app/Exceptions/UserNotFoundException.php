@@ -2,27 +2,12 @@
 
 namespace App\Exceptions;
 
-use Exception;
-use Illuminate\Http\JsonResponse;
-
 /**
  * Throws in case where \App\Models\User not found
  */
-class UserNotFoundException extends Exception
+class UserNotFoundException extends BadRequestException
 {
-	public function report(): void
-	{
+	public string $errorReason = 'user_not_found';
 
-	}
-
-	/**
-	 * Render the exception as an HTTP response.
-	 */
-	public function render(): JsonResponse
-	{
-		return response()->json([
-			'message' => 'Error occured',
-			'reason' => 'user_not_found'
-		], 404);
-	}
+	public int $statusCode = 404;
 }

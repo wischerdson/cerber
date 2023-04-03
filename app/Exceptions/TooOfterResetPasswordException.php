@@ -2,24 +2,9 @@
 
 namespace App\Exceptions;
 
-use Exception;
-use Illuminate\Http\JsonResponse;
-
-class TooOfterResetPasswordException extends Exception
+class TooOfterResetPasswordException extends BadRequestException
 {
-	public function report(): void
-	{
+	public string $errorReason = 'too_ofter_reset_password';
 
-	}
-
-	/**
-	 * Render the exception as an HTTP response.
-	 */
-	public function render(): JsonResponse
-	{
-		return response()->json([
-			'message' => 'Error occured',
-			'reason' => 'too_ofter_reset_password'
-		], 429);
-	}
+	public int $statusCode = 429;
 }
