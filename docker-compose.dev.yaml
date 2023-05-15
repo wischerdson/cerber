@@ -32,3 +32,12 @@ services:
     depends_on:
       - mariadb
     command: sh -c "php artisan queue:work"
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    environment:
+      PMA_HOST: mariadb
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    ports:
+      - 8080:80
