@@ -51,9 +51,7 @@ export default defineNuxtConfig({
 				// automatically imports `defineStore`
 				'defineStore', // import { defineStore } from 'pinia'
 			],
-		}],
-		// https://vueuse.org/guide/
-		'@vueuse/nuxt',
+		}]
 	],
 
 	tailwindcss: {

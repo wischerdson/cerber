@@ -6,22 +6,53 @@
 		<div class="pt-20">
 			<div class="w-full max-w-sm py-10 shadow rounded-2xl bg-white sm:bg-transparent sm:shadow-none">
 				<h1 class="text-center font-medium text-2xl text-zinc-800">Registration</h1>
-				<form class="mx-10 sm:mx-6 mt-10">
+				<form class="mx-10 sm:mx-6 mt-10" novalidate>
 					<div>
 						<label class="text-sm" for="register__email">Email</label>
-						<input class="form-control w-full mt-1.5" id="register__email" type="text">
+						<input
+							class="form-control w-full mt-1.5"
+							id="register__email"
+							type="email"
+							@change="touch(({ email }) => email, 'email')"
+							v-model="fields.email"
+							autocomplete="off"
+							autocorrect="off"
+							autocapitalize="off"
+							spellcheck="false"
+						>
+						<div v-if="hasErrors('email')">{{ getError('email') }}</div>
 					</div>
+				</form>
+				<!--
 					<div class="mt-6">
 						<label class="text-sm" for="register__login">Login</label>
-						<input class="form-control w-full mt-1.5" id="register__login" type="text">
+						<input
+							class="form-control w-full mt-1.5"
+							id="register__login"
+							type="text"
+							autocomplete="off"
+							autocorrect="off"
+							autocapitalize="off"
+							spellcheck="false"
+							v-model="state.login"
+							@change="startValidation('login')"
+						>
+						<div v-if="hasErrors('login')">{{ getError('login') }}</div>
 					</div>
 					<div class="mt-6">
 						<label class="text-sm" for="register__password">Password</label>
-						<input class="form-control w-full mt-1.5" id="register__password" type="password">
+						<input
+							class="form-control w-full mt-1.5"
+							id="register__password"
+							type="password"
+							v-model="state.password"
+							@change="startValidation('password')"
+						>
+						<div v-if="hasErrors('password')">{{ getError('password') }}</div>
 					</div>
 					<div class="mt-6">
 						<label class="text-sm" for="register__repeat_password">Repeat password</label>
-						<input class="form-control w-full mt-1.5" id="register__repeat_password" type="password">
+						<input class="form-control w-full mt-1.5" id="register__repeat_password" type="password" v-model="form.repeatPassword">
 					</div>
 					<div class="grid grid-cols-3 mt-6 items-center">
 						<NuxtLink class="btn h-auto px-0 text-sm text-zinc-500 hover:text-black justify-self-start" to="/">
@@ -29,15 +60,15 @@
 							<span>Sign in</span>
 						</NuxtLink>
 						<div class="justify-self-center">
-							<button class="btn btn-primary relative" type="button" @click="s = !s">
-								<span :class="{ 'opacity-0': s }">Register</span>
-								<div class="absolute inset-0 flex items-center justify-center" v-if="s">
+							<button class="btn btn-primary relative" type="submit">
+								<span :class="{ 'opacity-0': loading }">Register</span>
+								<div class="absolute inset-0 flex items-center justify-center" v-if="loading">
 									<icon size="26px" name="svg-spinners:tadpole" />
 								</div>
 							</button>
 						</div>
 					</div>
-				</form>
+				</form> -->
 			</div>
 		</div>
 	</div>
@@ -45,12 +76,40 @@
 
 <script setup lang="ts">
 
-import { useHead, ref } from '#imports'
+import { useHead } from '#imports'
+import { useRegistrationForm } from '~/composables/forms/registrationForm'
 
 useHead({
 	'title': 'Cerber - Registration'
 })
 
-const s = ref(false)
+type Fields = {
+	email: string,
+	login: string,
+	password: string,
+	repeat_password: string,
+	asd: {
+		dss: string
+	}
+}
+
+// const { state, startValidation, loading, getError, hasErrors, doesntHaveErrors, sendForm } = useRegistrationForm()
+const { fields, touch, getError, hasErrors } = useRegistrationForm()
+
+
+
+// const emailChanged = () => {
+// 	startValidation('email')
+
+// 	if (hasErrors('email')) {
+// 		state.value.login = state.value.login || state.value.email.split('@').shift() || ''
+// 	}
+// }
+
+
+
+// const autocompleteLogin = () => form.login = form.login || form.email.split('@').shift() || ''
+
+
 
 </script>
