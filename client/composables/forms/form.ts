@@ -15,11 +15,13 @@ declare type FormTools<T> = {
 	clean: (key: string) => void,
 	hasErrors: (key: string) => boolean,
 	doesntHaveErrors: (key: string) => boolean,
-	getError: (key: string) => string
+	getError: (key: string) => string,
+	sendForm: () => void
 }
 
 export const useForm = <T extends Schema = Schema<UnknownObject>, S extends InferType<T> = InferType<T>>(
 	rules: T,
+	readyToSendCb: (fields: S) => Promise<void>,
 	initValues?: S
 ): FormTools<S> => {
 	const fields = useState(() => rules.cast(initValues))
@@ -64,5 +66,20 @@ export const useForm = <T extends Schema = Schema<UnknownObject>, S extends Infe
 
 	const getError = (path: string) => clientErrors.value[path][0]
 
-	return { loading, fields, touch, clean, hasErrors, doesntHaveErrors, getError }
+	const sendForm = () => {
+		rules.validate(fields.value, { abortEarly: false }).then(() => {
+			clientErrors.value = {}
+			readyToSendCb(fields.value)
+		}).catch((e: ValidationError) => {
+			clientErrors.value = {}
+
+			e.inner.forEach(error => {
+				if (error.path) {
+					clientErrors.value[error.path] = error.errors
+				}
+			})
+		})
+	}
+
+	return { loading, fields, touch, clean, hasErrors, doesntHaveErrors, getError, sendForm }
 }
