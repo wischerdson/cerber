@@ -1,5 +1,6 @@
 import { string, object, ref, InferType } from 'yup'
 import { useForm } from './form'
+import { register } from '~/composables/api/auth'
 
 const rules = object({
 	email: string()
@@ -17,18 +18,18 @@ const rules = object({
 		.max(40, 'Пароль слишком длинный')
 		.default(''),
 	repeat_password: string()
-		.required()
 		.oneOf([ref('password')], 'Пароли не совпадают')
 		.default('')
 })
 
 declare type Fields = InferType<typeof rules>
 
-export const useRegistrationForm = (defaults?: Fields) => {
+declare type InitValues = { [key in keyof Fields]?: Fields[keyof Fields] }
+
+export const useRegistrationForm = (initValues?: InitValues) => {
 	return useForm(rules, (fields: Fields) => {
-		return new Promise((resolve) => {
-			alert('Готово к отправке')
-			resolve()
+		return register(fields).then(data => {
+
 		})
-	}, defaults)
+	}, initValues)
 }

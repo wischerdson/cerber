@@ -29,8 +29,11 @@ export default defineNuxtConfig({
 	},
 
 	runtimeConfig: {
+		apiBase: process.env.SERVER_API_URL,
+
 		public: {
-			storageBaseUrl: process.env.STORAGE_URL
+			storageBaseUrl: process.env.STORAGE_URL,
+			apiBase: process.env.BROWSER_API_URL
 		}
 	},
 
