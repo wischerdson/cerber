@@ -9,23 +9,22 @@ use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
-	public function signUp(Auth $auth, Request $request): string
+	public function register(Auth $auth, Request $request): string
 	{
 		$request->validate([
-			'email' => 'required | email | unique:'.\App\Models\EntryPoint::class.',login',
-			'password' => 'required | min:6 | max:60',
-			'user_agent' => 'required'
+			'email' => 'required | email | unique:' . \App\Models\EntryPoint::class . ',login',
+			'login' => 'required | unique:' . \App\Models\EntryPoint::class . ',login',
+			'password' => 'required | min:6 | max:40'
 		]);
 
-		return $auth->signUp();
+		return $auth->register();
 	}
 
 	public function token(Auth $auth, Request $request): string
 	{
 		$request->validate([
 			'login' => 'required',
-			'password' => 'required',
-			'user_agent' => 'required'
+			'password' => 'required'
 		]);
 
 		return $auth->attempt();

@@ -16,17 +16,26 @@ class Auth
 		$this->request = $request;
 	}
 
-	public function signUp(): string
+	public function register(): string
 	{
+		/** @var \App\Models\User */
 		$user = User::create($this->request->all());
 
-		$entryPoint = new EntryPoint();
-		$entryPoint->provider = 'email';
-		$entryPoint->login = $this->request->email;
-		$entryPoint->password = $this->request->password;
-		$user->entryPoints()->save($entryPoint);
+		$emailEntryPoint = $user->entryPoints()->create([
+			'provider' => EntryPoint::PROVIDER_EMAIL_PASSWORD,
+			'login' => $this->request->email,
+			'password' => $this->request->password
+		]);
 
-		return $user->createToken($entryPoint)->plainTextToken;
+		$loginEntryPoint = $emailEntryPoint->replicate()->fill([
+			'provider' => EntryPoint::PROVIDER_LOGIN_PASSWORD,
+			'login' => $this->request->login,
+			'confirmed' => true
+		]);
+
+		$user->entryPoints()->save($loginEntryPoint);
+
+		return $user->createToken($loginEntryPoint)->plainTextToken;
 	}
 
 	/**

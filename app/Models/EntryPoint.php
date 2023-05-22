@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Hash;
  * @property int $user_id
  * @property string $provider
  * @property string $login
+ * @property string $email
  * @property string $password
  * @property string $password_hash
  * @property bool $confirmed
@@ -23,11 +24,15 @@ class EntryPoint extends Model
 {
 	use HasFactory;
 
+	const PROVIDER_EMAIL_PASSWORD = 'email-password';
+
+	const PROVIDER_LOGIN_PASSWORD = 'login-password';
+
 	public $timestamps = false;
 
 	protected $table = 'entry_points';
 
-	protected $fillable = [];
+	protected static $unguarded = true;
 
 	public function user(): BelongsTo
 	{
@@ -54,9 +59,7 @@ class EntryPoint extends Model
 
 	protected static function booted()
 	{
-		$hashPassword = function (self $model) {
-			$model->password_hash = Hash::make($model->password);
-		};
+		$hashPassword = fn (self $model) => $model->password_hash = Hash::make($model->password);
 
 		static::creating($hashPassword);
 
