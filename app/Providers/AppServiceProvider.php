@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\StrMixin;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Str;
 use Laravel\Sanctum\Sanctum;
 
 class AppServiceProvider extends ServiceProvider
@@ -31,5 +33,6 @@ class AppServiceProvider extends ServiceProvider
 	public function boot()
 	{
 		JsonResource::withoutWrapping();
+		Str::mixin(new StrMixin());
 	}
 }

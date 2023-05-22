@@ -35,6 +35,6 @@ abstract class BadRequestException extends Exception
 			$responseData['details'] = $this->errorDetails;
 		}
 
-		return response()->json($responseData, 422);
+		return response()->json($responseData, $this->statusCode);
 	}
 }
