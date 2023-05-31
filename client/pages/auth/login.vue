@@ -13,7 +13,11 @@
 							class="form-control w-full mt-1.5"
 							id="sign_in__login"
 							type="text"
-							@change="touch(f => f.login, 'login')"
+							@change="touch('login')"
+							autocomplete="off"
+							autocorrect="off"
+							autocapitalize="off"
+							spellcheck="false"
 							v-model="fields.login"
 						>
 						<div v-if="hasAnyErrors('login')">{{ getError('login') }}</div>
@@ -24,7 +28,7 @@
 							class="form-control w-full mt-1.5"
 							id="sign_in__password"
 							type="password"
-							@change="touch(f => f.password, 'password')"
+							@change="touch('password')"
 							v-model="fields.password"
 						>
 						<div v-if="hasAnyErrors('password')">{{ getError('password') }}</div>
@@ -70,6 +74,10 @@ const { fields, hasAnyErrors, getError, touch, sendForm } = defineForm({
 		},
 		password: { required: 'Требуется ввести пароль' }
 	},
+	associate: f => ({
+		login: () => f.login,
+		password: () => f.password
+	}),
 	onSuccessSubmiting () {
 
 	},

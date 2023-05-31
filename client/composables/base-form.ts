@@ -24,6 +24,7 @@ export interface Config<S extends Schema<UnknownObject>, T = InitValues<InferTyp
 	initValues?: T,
 	errorMessages?: ErrorMessages
 	onSuccessSubmiting: (formData: T) => Promise<unknown> | void,
+	associate: (fields: T) => { [path: string]: () => any }
 }
 
 /**
@@ -38,6 +39,7 @@ export const defineForm = <S extends Schema<UnknownObject>>(initConfig: Config<S
 	const cfg = { ...defaultConfig, ...initConfig }
 	const formData = useState(() => cfg.rules.cast(cfg.initValues))
 	const observableFields: { [key: string]: WatchStopHandle } = {}
+	const associatedFields = cfg.associate(formData.value)
 	const serverErrors = useState<Errors>(() => ({}))
 	const {
 		validate,
@@ -48,7 +50,7 @@ export const defineForm = <S extends Schema<UnknownObject>>(initConfig: Config<S
 	/**
 	 * Проверяет отслеживается ли указанное поле для валидации
 	 */
-	const isDirty = (path: keyof typeof observableFields) => path in observableFields
+	const isDirty = (path: string) => path in observableFields
 
 	/**
 	 * Проверяет наличие серверных ошибок, связанных с указанным полем
@@ -74,30 +76,30 @@ export const defineForm = <S extends Schema<UnknownObject>>(initConfig: Config<S
 	 *
 	 * Пример использования: touch(f => f.email, 'email')
 	 */
-	const touch = (cb: (fields: typeof formData.value) => unknown, path: string) => {
-		if (!isDirty(path)) {
-			observableFields[path] = watch(
-				() => cb(formData.value),
-				() => {
-					clearServerErrors(path)
-					validate(formData.value, path)
-				}
-			)
+	const touch = (path: string) => {
+		if(!isDirty(path)) {
+			observableFields[path] = watch(associatedFields[path], () => {
+				clearServerErrors(path)
+				validate(formData.value, Object.keys(observableFields))
+			})
 		}
 
-		return validate(formData.value, path)
+		return validate(formData.value, Object.keys(observableFields))
 	}
 
 	/**
 	 * Отменяет отслеживание указанноего поля и удаляет все ошибки валидации, связанные с ним
 	 */
-	const clean = (path: keyof typeof observableFields) => {
+	const clean = (path: string) => {
 		if (isDirty(path)) {
 			observableFields[path]()
 			delete observableFields[path]
 		}
 	}
 
+	/**
+	 * Получить текст ошибки указанного поля
+	 */
 	const getErrorByKey = (path: string, errorKey: string) => {
 		if (path in cfg.errorMessages && errorKey in cfg.errorMessages[path]) {
 			return cfg.errorMessages[path][errorKey]
@@ -121,18 +123,15 @@ export const defineForm = <S extends Schema<UnknownObject>>(initConfig: Config<S
 	 * либо от сервера
 	 */
 	const getError = (path: string) => {
-		let errorKey = undefined
-
 		if (hasValidationErrors(path)) {
-			errorKey = <string>getValidationError(path)
+			const errorKey = <string>getValidationError(path)
 			return getErrorByKey(path, errorKey)
 		}
 
 		if (hasServerErrors(path)) {
-			errorKey = serverErrors.value[path][0]
+			const errorKey = serverErrors.value[path][0]
+			return getErrorByKey(path, errorKey)
 		}
-
-		return errorKey ? getErrorByKey(path, errorKey) : undefined
 	}
 
 	const handleResponse = (request: Promise<unknown>) => {
@@ -148,19 +147,23 @@ export const defineForm = <S extends Schema<UnknownObject>>(initConfig: Config<S
 	 * Очищает все серверные ошибки валидации, а также выполняет полную клиентскую валидацию
 	 * формы
 	 */
-	const sendForm = () => validate(formData.value).then(() => {
+	const sendForm = () => {
 		clearServerErrors()
 
-		if (!hasValidationErrors()) {
-			const maybePromise = cfg.onSuccessSubmiting(toRaw(formData.value))
+		validate(formData.value, [], true).then(() => {
+			console.log('then');
 
-			if (maybePromise instanceof Promise) {
-				handleResponse(maybePromise)
+			if (!hasValidationErrors()) {
+				const maybePromise = cfg.onSuccessSubmiting(toRaw(formData.value))
+
+				if (maybePromise instanceof Promise) {
+					handleResponse(maybePromise)
+				}
 			}
-		}
-	}).catch((e: ValidationError) => {
-
-	})
+		}).catch((e: ValidationError) => {
+			e.inner.forEach(error => error.path ? touch(error.path) : void 0)
+		})
+	}
 
 	return {
 		fields: formData, isDirty, touch, clean, getError, sendForm, hasServerErrors,

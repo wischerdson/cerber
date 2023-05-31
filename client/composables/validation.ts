@@ -27,15 +27,23 @@ export const useValidation = <T extends Schema = Schema<UnknownObject>, S extend
 		path && hasErrors(path) ? delete errors.value[path] : clearErrors()
 	}
 
-	const validate = (values: S, path?: string) => {
+	const validate = (values: S, paths: string[] = [], throwOnError = false) => {
 		errors.value = {}
 
-		return rules.validate(values, { abortEarly: false }).catch((e: ValidationError) => {
+		return rules.validate(values, { abortEarly: false }).then(undefined, (e: ValidationError) => {
 			e.inner.forEach(error => {
-				if (error.path && (!path || error.path == path)) {
+				if (
+					error.path &&
+					!(error.path in errors.value) &&
+					(!paths.length || paths.includes(error.path))
+				) {
 					errors.value[error.path] = error.errors
 				}
 			})
+
+			if (throwOnError) {
+				throw e
+			}
 		})
 	}
 
