@@ -2,9 +2,9 @@ import { defineNuxtPlugin } from 'nuxt/app'
 import { addMethod, setLocale, string } from 'yup'
 
 export default defineNuxtPlugin(App => {
-	addMethod(string, 'email', function (message) {
+	addMethod(string, 'email', function () {
 		return this.matches(/^\S+@\S+\.\S+$/, {
-			message,
+			message: 'email',
 			name: 'email',
 			excludeEmptyString: true,
 		})
@@ -12,10 +12,12 @@ export default defineNuxtPlugin(App => {
 
 	setLocale({
 		mixed: {
-			required: 'required'
+			required: 'required',
+			oneOf: 'oneOf'
 		},
 		string: {
-			min: 'min'
+			min: 'min',
+			email: 'email'
 		}
 	})
 })

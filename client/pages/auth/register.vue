@@ -20,7 +20,7 @@
 							autocapitalize="off"
 							spellcheck="false"
 						>
-						<div v-if="hasErrors('email')">{{ getError('email') }}</div>
+						<div v-if="hasAnyErrors('email')">{{ getError('email') }}</div>
 					</div>
 					<div class="mt-6">
 						<label class="text-sm" for="register__login">Login</label>
@@ -33,9 +33,9 @@
 							autocapitalize="off"
 							spellcheck="false"
 							v-model="fields.login"
-							@change="touch(f => f.login, 'login')"
+							@change="touch('login')"
 						>
-						<div v-if="hasErrors('login')">{{ getError('login') }}</div>
+						<div v-if="hasAnyErrors('login')">{{ getError('login') }}</div>
 					</div>
 					<div class="mt-6">
 						<label class="text-sm" for="register__password">Password</label>
@@ -44,9 +44,9 @@
 							id="register__password"
 							type="password"
 							v-model="fields.password"
-							@change="touch(f => f.password, 'password')"
+							@change="touch('password')"
 						>
-						<div v-if="hasErrors('password')">{{ getError('password') }}</div>
+						<div v-if="hasAnyErrors('password')">{{ getError('password') }}</div>
 					</div>
 					<div class="mt-6">
 						<label class="text-sm" for="register__repeat_password">Repeat password</label>
@@ -55,9 +55,9 @@
 							id="register__repeat_password"
 							type="password"
 							v-model="fields.repeat_password"
-							@change="touch(f => f.repeat_password, 'repeat_password')"
+							@change="touch('repeat_password')"
 						>
-						<div v-if="hasErrors('repeat_password')">{{ getError('repeat_password') }}</div>
+						<div v-if="hasAnyErrors('repeat_password')">{{ getError('repeat_password') }}</div>
 					</div>
 					<div class="grid grid-cols-3 mt-6 items-center">
 						<NuxtLink class="btn h-auto px-0 text-sm text-zinc-500 hover:text-black justify-self-start" to="/">
@@ -81,24 +81,26 @@
 
 <script setup lang="ts">
 
-import { useHead } from '#imports'
+import { ref, useHead } from '#imports'
 import { useRegistrationForm } from '~/composables/forms/registrationForm'
 
 useHead({
 	'title': 'Cerber - Registration'
 })
 
-const { fields, loading, touch, getError, hasErrors, doesntHaveErrors, sendForm } = useRegistrationForm({
+const { fields, touch, getError, hasAnyErrors, sendForm } = useRegistrationForm({
 	// email: 'wischerdson@gmail.com',
 	// login: 'wischerdson',
 	// password: '123123',
 	// repeat_password: '123123'
 })
 
-const emailChanged = async () => {
-	await touch(f => f.email, 'email')
+const loading = ref(false)
 
-	if (doesntHaveErrors('email')) {
+const emailChanged = async () => {
+	await touch('email')
+
+	if (!hasAnyErrors('email')) {
 		fields.value.login = fields.value.login || fields.value.email.split('@').shift() || ''
 	}
 }
