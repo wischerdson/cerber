@@ -1,4 +1,4 @@
-import { InferType, Schema, ValidationError } from 'yup'
+import { InferType, ObjectSchema, ValidationError } from 'yup'
 import { useState, useValidation, watch } from '#imports'
 import { WatchStopHandle, toRaw } from 'vue'
 import { FetchError } from 'ofetch'
@@ -6,46 +6,58 @@ import { Errors } from '~/composables/validation'
 
 export const SERVER_VALIDATION_ERROR_REASON = 'validation_failed'
 
+export type AssociatedFields = { [path: string]: () => any }
+
 export type MessagesForErrorKeys = { [errorKey: string]: string }
 
 export type ErrorMessages = { [path: string]: MessagesForErrorKeys }
-
-export type FormData = {}
 
 export type InitValues<InferType> = { [key in keyof InferType]?: InferType[keyof InferType] }
 
 export interface DefaultConfig {
 	defaultMessagesForErrorKeys: MessagesForErrorKeys,
-	errorMessages: ErrorMessages
+	errorMessages: ErrorMessages,
+	allowAutoAssociation?: boolean
 }
 
-export interface Config<S extends Schema<UnknownObject>, T = InitValues<InferType<S>>> {
+export interface Config<S extends ObjectSchema<UnknownObject>, T = InitValues<InferType<S>>> {
 	rules: S,
 	initValues?: T,
-	errorMessages?: ErrorMessages
+	errorMessages?: ErrorMessages,
+	allowAutoAssociation?: boolean
 	onSuccessSubmiting: (formData: T) => Promise<unknown> | void,
-	associate: (fields: T) => { [path: string]: () => any }
+	associate?: (fields: T) => AssociatedFields
 }
 
 /**
  * Можно определить в плагине при запуске приложения
  */
 export const defaultConfig: DefaultConfig = {
+	allowAutoAssociation: true,
 	defaultMessagesForErrorKeys: {},
 	errorMessages: {}
 }
 
-export const defineForm = <S extends Schema<UnknownObject>>(initConfig: Config<S>) => {
+export const defineForm = <S extends ObjectSchema<UnknownObject>>(initConfig: Config<S>) => {
 	const cfg = { ...defaultConfig, ...initConfig }
 	const formData = useState(() => cfg.rules.cast(cfg.initValues))
 	const observableFields: { [key: string]: WatchStopHandle } = {}
-	const associatedFields = cfg.associate(formData.value)
+	const associatedFields: AssociatedFields = {}
 	const serverErrors = useState<Errors>(() => ({}))
 	const {
 		validate,
 		getError: getValidationError,
 		hasErrors: hasValidationErrors
 	} = useValidation(cfg.rules)
+
+	/**
+	 * Автоассоциация подходит только для одномерных (неглубоких) форм
+	 */
+	const autoAssociate = () => {
+		Object.keys(cfg.rules.fields).forEach(path => {
+			associatedFields[path] = () => formData.value[path]
+		})
+	}
 
 	/**
 	 * Проверяет отслеживается ли указанное поле для валидации
@@ -76,7 +88,7 @@ export const defineForm = <S extends Schema<UnknownObject>>(initConfig: Config<S
 	 *
 	 * Пример использования: touch(f => f.email, 'email')
 	 */
-	const touch = (path: string) => {
+	const touch = (path: string, validateImmediately = true) => {
 		if(!isDirty(path)) {
 			observableFields[path] = watch(associatedFields[path], () => {
 				clearServerErrors(path)
@@ -84,7 +96,7 @@ export const defineForm = <S extends Schema<UnknownObject>>(initConfig: Config<S
 			})
 		}
 
-		return validate(formData.value, Object.keys(observableFields))
+		return validateImmediately ? validate(formData.value, Object.keys(observableFields)) : void 0
 	}
 
 	/**
@@ -151,8 +163,6 @@ export const defineForm = <S extends Schema<UnknownObject>>(initConfig: Config<S
 		clearServerErrors()
 
 		validate(formData.value, [], true).then(() => {
-			console.log('then');
-
 			if (!hasValidationErrors()) {
 				const maybePromise = cfg.onSuccessSubmiting(toRaw(formData.value))
 
@@ -164,6 +174,9 @@ export const defineForm = <S extends Schema<UnknownObject>>(initConfig: Config<S
 			e.inner.forEach(error => error.path ? touch(error.path) : void 0)
 		})
 	}
+
+	if (cfg.allowAutoAssociation) autoAssociate()
+	if (cfg.associate) cfg.associate(formData.value)
 
 	return {
 		fields: formData, isDirty, touch, clean, getError, sendForm, hasServerErrors,

@@ -74,10 +74,6 @@ const { fields, hasAnyErrors, getError, touch, sendForm } = defineForm({
 		},
 		password: { required: 'Требуется ввести пароль' }
 	},
-	associate: f => ({
-		login: () => f.login,
-		password: () => f.password
-	}),
 	onSuccessSubmiting () {
 
 	},

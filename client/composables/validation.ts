@@ -18,7 +18,7 @@ export const useValidation = <T extends Schema = Schema<UnknownObject>, S extend
 
 	const getError = (path: string) => {
 		const maybeErrors = getErrors(path)
-		return Array.isArray(maybeErrors) ? maybeErrors[0] : undefined
+		return Array.isArray(maybeErrors) ? maybeErrors[0] : void 0
 	}
 
 	const clearErrors = () => errors.value = {}
