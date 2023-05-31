@@ -1,7 +1,7 @@
 <template>
 	<div class="min-h-screen flex items-center sm:items-end justify-center relative">
 		<div class="absolute top-0 inset-x-0 flex justify-center mt-10 -z-10">
-			<img class="w-32 opacity-30" src="/images/cerberus.png" alt="">
+			<img class="w-32 opacity-30" src="/images/cerberus_4x.webp" alt="">
 		</div>
 		<div class="py-20">
 			<div class="w-full max-w-sm py-10 shadow rounded-2xl bg-white sm:bg-transparent sm:shadow-none">
@@ -88,10 +88,15 @@ useHead({
 	'title': 'Cerber - Registration'
 })
 
-const { fields, loading, touch, getError, hasErrors, doesntHaveErrors, sendForm } = useRegistrationForm()
+const { fields, loading, touch, getError, hasErrors, doesntHaveErrors, sendForm } = useRegistrationForm({
+	// email: 'wischerdson@gmail.com',
+	// login: 'wischerdson',
+	// password: '123123',
+	// repeat_password: '123123'
+})
 
-const emailChanged = () => {
-	touch(f => f.email, 'email')
+const emailChanged = async () => {
+	await touch(f => f.email, 'email')
 
 	if (doesntHaveErrors('email')) {
 		fields.value.login = fields.value.login || fields.value.email.split('@').shift() || ''

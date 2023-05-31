@@ -3,24 +3,33 @@ import { useForm } from './form'
 import { register } from '~/composables/api/auth'
 
 const rules = object({
-	email: string()
-		.required('Введите email')
-		.email('Введенный email некорректен')
-		.default(''),
-	login: string()
-		.required('Придумайте логин')
-		.min(2, 'Придумайте логин')
-		.max(20, 'Не более 20 символов')
-		.default(''),
-	password: string()
-		.required('Придумайте какой-нибудь сложный пароль')
-		.min(6, 'Пароль слишком короткий')
-		.max(40, 'Пароль слишком длинный')
-		.default(''),
-	repeat_password: string()
-		.oneOf([ref('password')], 'Пароли не совпадают')
-		.default('')
+	email: string().required().email().default(''),
+	login: string().required().min(2).max(20).default(''),
+	password: string().required().min(6).max(40).default(''),
+	repeat_password: string().oneOf([ref('password')]).default('')
 })
+
+const errors = {
+	email: {
+		unique: 'Такой email уже был зарегистрирован',
+		required: 'Введите email',
+		email: 'Введенный email некорректен'
+	},
+	login: {
+		unique: 'Такой логин уже был зарегистрирован',
+		required: 'Придумайте логин',
+		min: 'Придумайте логин',
+		max: 'Не более 20 символов'
+	},
+	password: {
+		required: 'Придумайте какой-нибудь сложный пароль',
+		min: 'Пароль слишком короткий',
+		max: 'Пароль слишком длинный'
+	},
+	repeat_password: {
+		oneOf: 'Пароли не совпадают'
+	}
+}
 
 declare type Fields = InferType<typeof rules>
 
@@ -33,3 +42,13 @@ export const useRegistrationForm = (initValues?: InitValues) => {
 		})
 	}, initValues)
 }
+
+// export const useRegistrationForm1 = (initValues?: InitValues) => {
+// 	return useForm1(ctx => {
+// 		ctx.setRules(rules).setErrors(errors).setData(initValues)
+
+// 		ctx.onSubmitSuccess(data => register(data).then(() => {
+
+// 		}))
+// 	})
+// }
